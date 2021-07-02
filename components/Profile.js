@@ -1,5 +1,5 @@
 import profileStyle from "../styles/Profile.module.css";
-import { Container } from "@material-ui/core";
+import { Container, FormHelperText } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -16,7 +16,7 @@ import Slide from "@material-ui/core/Slide";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
-
+import LangItem from "../components/LangItem";
 const useStyles = makeStyles((theme) => ({
   root: {
     height: 180,
@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 1,
     position: "relative",
     margin: theme.spacing(1),
+    width: 1000,
+   
+    
   },
   root: {
     maxWidth: 345,
@@ -37,6 +40,10 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     objectFit: "cover",
   },
+  
+  languageContainer: {
+    maxWidth: 200,
+  }
 }));
 
 const Profile = ({ profile }) => {
@@ -47,6 +54,9 @@ const Profile = ({ profile }) => {
   const handleChange = () => {
     setChecked((prev) => !prev);
   };
+
+  // console.log(Object.entries(profile.ranks.languages).map(item => item[0]));
+
   return (
     <Grid
       container
@@ -104,12 +114,26 @@ const Profile = ({ profile }) => {
       <div className={classes.wrapper}>
         <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
           <Paper elevation={4} className={classes.paper}>
-            <h2>Additional information:</h2>
- 
-
+            <h2 className={profileStyle.title} >Language experience (in detail):</h2>
+            <p>Clan: {profile.clan}</p>
             <dl>
-              <dt>Firefox</dt>
-              <dd></dd>
+              {/*Sorted by decreasing overall score*/}
+              {Object.entries(profile.ranks.languages).sort((a,b) => {return b[1].score - a[1].score; }).map((item) => (
+                <Card className={profileStyle.languages}>
+                  <CardContent className={profileStyle.item}>
+                    <Typography className={classes.languageContainerTitle} variant="h4" component="h2">
+                      <dt>{item[0]}</dt>
+                    </Typography>
+                    <Typography variant="body">
+                      <dd>
+                        {item[1].name}
+                        <br />
+                        Overall Score: {item[1].score}
+                      </dd>
+                    </Typography>
+                  </CardContent>
+                </Card>
+              ))}
             </dl>
           </Paper>
         </Slide>

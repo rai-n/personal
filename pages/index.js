@@ -3,15 +3,17 @@ import ArticleList from '../components/ArticleList'
 import Profile from '../components/Profile'
 import Divider from '@material-ui/core/Divider'
 import Header from '../components/Header'
-import articleStyles from "../styles/Article.module.css";
-
+import articleStyles from "../styles/Article.module.css"
+import Blog from "../components/Blog"
 export default function Home({ articles, profile }) {
   return (
     <div>
       <Header />
       <Profile profile={profile} />
+      <br></br>
+      <Blog/>
       <ArticleList articles={articles} className={articleStyles.background} />
-   
+      
     </div>
   )
 }

@@ -13,3 +13,23 @@
     flex-direction: column;
   }
 }
+
+.languages {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+}
+
+.item {
+  list-style: none;
+  flex: 0 0 33.333333%;
+  padding: 2rem;
+}
+
+.title {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 2rem;
+  color: rgb(29,29,31);
+  padding:  2rem;
+}
