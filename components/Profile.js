@@ -15,7 +15,6 @@ import Paper from "@material-ui/core/Paper";
 import Slide from "@material-ui/core/Slide";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { makeStyles } from "@material-ui/core/styles";
-import React from "react";
 import LangItem from "../components/LangItem";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,8 +28,6 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     margin: theme.spacing(1),
     width: 1000,
-   
-    
   },
   root: {
     maxWidth: 345,
@@ -40,23 +37,19 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     objectFit: "cover",
   },
-  
+
   languageContainer: {
     maxWidth: 200,
-  }
+  },
 }));
 
 const Profile = ({ profile }) => {
   const classes = useStyles();
 
-  const [checked, setChecked] = React.useState(false);
-
-  const handleChange = () => {
-    setChecked((prev) => !prev);
-  };
-
   // console.log(Object.entries(profile.ranks.languages).map(item => item[0]));
 
+
+  
   return (
     <Grid
       container
@@ -105,38 +98,42 @@ const Profile = ({ profile }) => {
           >
             VIEW PROFILE
           </Link>
-          <FormControlLabel
-            control={<Switch checked={checked} onChange={handleChange} />}
-            label="Show"
-          />
         </CardActions>
       </Card>
       <div className={classes.wrapper}>
-        <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
-          <Paper elevation={4} className={classes.paper}>
-            <h2 className={profileStyle.title} >Language experience (in detail):</h2>
-            <p>Clan: {profile.clan}</p>
-            <dl>
-              {/*Sorted by decreasing overall score*/}
-              {Object.entries(profile.ranks.languages).sort((a,b) => {return b[1].score - a[1].score; }).map((item) => (
-                <Card className={profileStyle.languages}>
-                  <CardContent className={profileStyle.item}>
-                    <Typography className={classes.languageContainerTitle} variant="h4" component="h2">
-                      <dt>{item[0]}</dt>
-                    </Typography>
-                    <Typography variant="body">
-                      <dd>
-                        {item[1].name}
-                        <br />
-                        Overall Score: {item[1].score}
-                      </dd>
-                    </Typography>
-                  </CardContent>
-                </Card>
-              ))}
-            </dl>
-          </Paper>
-        </Slide>
+      
+        <h2 className={profileStyle.title}>Language experience (in detail):</h2>
+
+        <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        <p>Clan: {profile.clan}</p>
+        <dl>
+          {/*Sorted by decreasing overall score*/}
+          {Object.entries(profile.ranks.languages)
+            .sort((a, b) => {
+              return b[1].score - a[1].score;
+            })
+            .map((item) => (
+              <Card className={profileStyle.languages}>
+                <CardContent className={profileStyle.item}>
+                  <Typography
+                    className={classes.languageContainerTitle}
+                    variant="h4"
+                    component="h2"
+                  >
+                    <dt>{item[0]}</dt>
+                  </Typography>
+                  <Typography variant="body">
+                    <dd>
+                      {item[1].name}
+                      <br />
+                      Overall Score: {item[1].score}
+                    </dd>
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
+        </dl>
       </div>
     </Grid>
   );

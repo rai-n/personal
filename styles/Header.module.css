@@ -8,7 +8,7 @@
 .title a:focus,
 .title a:active {
   text-decoration: underline;
-}
+}+
 
 .title {
   margin: 0;
